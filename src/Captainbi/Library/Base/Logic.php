@@ -4,23 +4,51 @@
 namespace Captainbi\Library\Base;
 
 
+use Captainbi\Library\Exception\BusinessException;
+
 abstract class Logic
 {
-    protected  $model;
+    protected $model;
+    protected $validate;
 
     public function __construct()
     {
         $this->model = $this->setModel();
+        $this->validate = $this->setValidate();
     }
 
     abstract protected function setModel();
 
-    public function get(int $id) {
+    abstract protected function setValidate();
+
+    public function get(int $id)
+    {
         // 我们假设存在一个 Info 实体
-        return $this->model::where('id',$id)->first();
+        return $this->model::where('id', $id)->first();
     }
 
-    public function save($array) {
+    public function insert($array)
+    {
+        $pk = $this->model->getPk();
+        if (isset($array[$pk])) {
+            throw new BusinessException('9999', '新增数据不能提交' . $pk . '参数');
+        }
+        return $this->save($array);
+    }
+
+    public function update($array)
+    {
+        $pk = $this->model->getPk();
+        if (!isset($array[$pk])) {
+            throw new BusinessException('9999', '更新数据必须提交' . $pk . '参数');
+        }
+        return $this->save($array);
+    }
+
+
+    private function save($array)
+    {
+        validate($this->validate)->check($array);
         $pk = $this->model->getPk();
         if ($array[$pk]) {//更新
             $this->model::update($array);
@@ -29,7 +57,8 @@ abstract class Logic
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         return $this->model::destroy($id);
     }
 
