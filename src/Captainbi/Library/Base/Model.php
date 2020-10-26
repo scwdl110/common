@@ -20,4 +20,7 @@ class Model extends \think\Model
     {
         parent::__construct($data);
     }
+
+
+
 }

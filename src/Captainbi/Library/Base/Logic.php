@@ -50,8 +50,8 @@ abstract class Logic
     {
         validate($this->validate)->check($array);
         $pk = $this->model->getPk();
-        if ($array[$pk]) {//更新
-            $this->model::update($array);
+        if (isset($array[$pk])) {//更新
+            return $this->model::update($array);
         } else {//插入
             return $this->model::create($array);
         }
