@@ -24,7 +24,7 @@ abstract class Logic
     public function get(int $id)
     {
         // 我们假设存在一个 Info 实体
-        return $this->model::where('id', $id)->first();
+        return $this->model::where('id', $id)->find();
     }
 
     public function insert($array)
