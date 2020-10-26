@@ -12,7 +12,7 @@
  * @param <T>
  */
 
-namespace App\Util;
+namespace Captainbi\Library\Util;
 
 class Result
 {
