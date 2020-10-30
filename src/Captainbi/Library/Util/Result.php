@@ -17,8 +17,9 @@ namespace Captainbi\Library\Util;
 class Result
 {
 
-    private static function data($code, $msg, $data = null)
+    private static function data($code, $msg, $data = [])
     {
+
         return json(array(
             'code' => $code ? $code : 0,
             'msg' => $msg ? $msg : 'success',
@@ -31,9 +32,12 @@ class Result
      * @param <T>
      * @return
      */
-    public static function success($data, $msg = '')
+    public static function success($data = [], $msg = '')
     {
-        return self::data(0, "success", $data);
+        if (empty($msg)) {
+            $msg = isset(config('error')[200]) ? config('error')[200] : '';
+        }
+        return self::data(200, $msg, $data);
     }
 
     /**
@@ -41,9 +45,14 @@ class Result
      * @param <T>
      * @return
      */
-    public static function fail($code, $msg = '')
+    public static function fail($code = -1, $msg = '', $data = [])
     {
-        return self::data($code, $msg);
+        if ($msg == '') {
+            $result['msg'] = isset(config('error')[$code]) ? config('error')[$code] : '';
+        } else {
+            $result['msg'] = $msg;
+        }
+        return self::data($code, $msg, $data);
     }
 
 }
