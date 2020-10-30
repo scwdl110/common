@@ -48,9 +48,7 @@ class Result
     public static function fail($code = -1, $msg = '', $data = [])
     {
         if ($msg == '') {
-            $result['msg'] = isset(config('error')[$code]) ? config('error')[$code] : '';
-        } else {
-            $result['msg'] = $msg;
+            $msg = isset(config('error')[$code]) ? config('error')[$code] : '';
         }
         return self::data($code, $msg, $data);
     }
