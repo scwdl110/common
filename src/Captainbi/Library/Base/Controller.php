@@ -2,6 +2,7 @@
 
 namespace Captainbi\Library\Base;
 
+use think\App;
 
 class Controller
 {
