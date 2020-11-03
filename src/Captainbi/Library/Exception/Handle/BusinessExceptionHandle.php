@@ -3,8 +3,8 @@ declare (strict_types=1);
 
 namespace Captainbi\Library\Exception\Handle;
 
-use App\Util\Result;
 use Captainbi\Library\Exception\BusinessException;
+use Captainbi\Library\Util\Result;
 use think\exception\Handle;
 use think\exception\HttpException;
 use think\exception\ValidateException;
