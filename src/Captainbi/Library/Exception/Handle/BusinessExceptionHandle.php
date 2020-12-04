@@ -20,7 +20,7 @@ class BusinessExceptionHandle extends Handle
     {
         // 参数验证错误
         if ($e instanceof BusinessException) {
-            return Result::fail($e->getCode(),$e->getMessage());
+            return Result::fail($e->getCode(),$e->getMessage(), $e->getData());
         }
         // 其他错误交给系统处理
         return parent::render($request, $e);

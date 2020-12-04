@@ -10,8 +10,14 @@ use Throwable;
  */
 class BusinessException extends \RuntimeException
 {
-    public function __construct($code = 10001, $message = '', Throwable $previous = null)
+    private $data;
+    public function __construct($code = 10001, $message = '', $data=array())
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, $code);
+        $this->data = $data;
+    }
+
+    public function getData(){
+        return $this->data;
     }
 }
