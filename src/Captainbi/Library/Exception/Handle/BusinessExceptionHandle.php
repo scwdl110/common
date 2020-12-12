@@ -22,6 +22,10 @@ class BusinessExceptionHandle extends Handle
         if ($e instanceof BusinessException) {
             return Result::fail($e->getCode(),$e->getMessage());
         }
+
+        if ($e instanceof \ErrorException) {
+            return Result::fail($e->getCode(), $e->getMessage());
+        }
         // 其他错误交给系统处理
         return parent::render($request, $e);
     }
