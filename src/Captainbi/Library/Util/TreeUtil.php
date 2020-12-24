@@ -26,7 +26,7 @@ class TreeUtil
         foreach ($list as $v) {
             if ($v[$pk] == $id) {
                 $tree[] = $v;
-                $tree   = array_merge(self::getParents($list, $v[$pid]), $tree);
+                $tree = array_merge(self::getParents($list, $v[$pid], $pk, $pid), $tree);
             }
         }
 
